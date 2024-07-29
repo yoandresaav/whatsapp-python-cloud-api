@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name="whatsapp-python-cloud-api"
-authors = [{name="Yoandre Saavedra", email="mail@filipporomani.it"}]
+authors = [{name="Yoandre Saavedra", email="mail@example.com"}]
 description="Open source Python wrapper for the WhatsApp Cloud API"
 readme = "README.md"
 requires-python = ">=3.10"
