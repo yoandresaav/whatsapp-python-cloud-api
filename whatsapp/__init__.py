@@ -31,23 +31,23 @@ class WhatsApp(object):
         logging.getLogger(__name__).addHandler(logging.NullHandler())
 
         self.VERSION = VERSION
-        # if update_check is True:
-        #     latest = str(requests.get(
-        #         "https://pypi.org/pypi/whatsapp-python/json").json()["info"]["version"])
-        #     if self.VERSION != latest:
-        #         try:
-        #             version_int = int(self.VERSION.replace(".", ""))
-        #         except:
-        #             version_int = 0
-        #         latest_int = int(latest.replace(".", ""))
-        #         # this is to avoid the case where the version is 1.0.10 and the latest is 1.0.2 (possible if user is using the github version)
-        #         if version_int < latest_int:
-        #             if version_int == 0:
-        #                 logging.critical(
-        #                     f"There was an error while checking for updates, please update the package manually or report the issue on GitHub.")
-        #             else:
-        #                 logging.critical(
-        #                     f"Whatsapp-python is out of date. Please update to the latest version {latest}. READ THE CHANGELOG BEFORE UPDATING. NEW VERSIONS MAY BREAK YOUR CODE IF NOT PROPERLY UPDATED.")
+        if update_check is True:
+            latest = str(requests.get(
+                "https://pypi.org/pypi/whatsapp-python-cloud-api/json").json()["info"]["version"])
+            if self.VERSION != latest:
+                try:
+                    version_int = int(self.VERSION.replace(".", ""))
+                except:
+                    version_int = 0
+                latest_int = int(latest.replace(".", ""))
+                # this is to avoid the case where the version is 1.0.10 and the latest is 1.0.2 (possible if user is using the github version)
+                if version_int < latest_int:
+                    if version_int == 0:
+                        logging.critical(
+                            f"There was an error while checking for updates, please update the package manually or report the issue on GitHub.")
+                    else:
+                        logging.critical(
+                            f"Whatsapp-python is out of date. Please update to the latest version {latest}. READ THE CHANGELOG BEFORE UPDATING. NEW VERSIONS MAY BREAK YOUR CODE IF NOT PROPERLY UPDATED.")
 
         if token == "":
             logging.error("Token not provided")
@@ -80,19 +80,19 @@ class WhatsApp(object):
 
         # Verification handler has 1 argument: challenge (str | bool): str if verification is successful, False if not
 
-    async def verify_endpoint(self, query_params: dict):
+    def verify_endpoint(self, query_params: dict):
         if query_params.get("hub.verify_token") == self.verify_token:
             logging.debug("Webhook verified successfully")
             challenge = query_params.get("hub.challenge")
             self.verification_handler(challenge)
             self.other_handler(challenge)
-            return int(challenge)
+            return str(challenge)
         logging.error("Webhook Verification failed - token mismatch")
-        await self.verification_handler(False)
-        await self.other_handler(False)
+        self.verification_handler(False)
+        self.other_handler(False)
         return {"success": False}
 
-    async def hook(request: dict):
+    def hook(self, request: dict):
         try:
             # Handle Webhook Subscriptions
             data = request.get('data')
@@ -107,8 +107,8 @@ class WhatsApp(object):
                 new_message = self.is_message(data)
                 if new_message:
                     msg = Message(instance=self, data=data)
-                    await self.message_handler(msg)
-                    await self.other_handler(msg)
+                    self.message_handler(msg)
+                    self.other_handler(msg)
             return {"success": True}
         except Exception as e:
             logging.error(f"Error parsing message: {e}")
