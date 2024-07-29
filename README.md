@@ -1,3 +1,7 @@
+### This is a clone of the original repository: https://github.com/filipporomani/whatsapp
+I have removed Flask and uvicorn from dependencies. I will try to mantain this repository up to date with the original one.
+
+
 <div align="center">
   <img src="https://gist.githubusercontent.com/boywithkeyboard/e8dc5b1810bd29e1d70346ca11d7f09d/raw/7f7eeea482f5047e62944e54182aa26c89cc299a/whatsapp_python.svg" alt="logo" width="128px">
   <h1>whatsapp-python</h1>
@@ -17,7 +21,7 @@ To install the library you can either use pip (latest release version):
 You can also install the development GitHub version (always up to date):
 
 ```bash
-git clone https://github.com/filipporomani/whatsapp.git
+git clone https://github.com/yoandresaav/whatsapp-python-cloud-api.git
 cd whatsapp
 pip install .
 ```
@@ -25,7 +29,7 @@ pip install .
 If you want to use a local enviroment you can also use hatch:
   
 ```bash
-git clone https://github.com/filipporomani/whatsapp.git
+git clone https://github.com/yoandresaav/whatsapp-python-cloud-api.git
 cd whatsapp
 pip install hatch
 hatch shell
