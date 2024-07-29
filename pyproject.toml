@@ -46,4 +46,4 @@ path = "whatsapp/constants.py"
 variable = "VERSION"
 
 [tool.hatch.build.targets.wheel]
-packages = ["whatsapp-python-cloud-api"]
+packages = ["whatsapp"]
